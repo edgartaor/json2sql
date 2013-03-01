@@ -5,17 +5,10 @@ This PHP script converts a JSON file to a series of SQL INSERT staments
 
 Usage
 -----
-Make this executable
-
-    $ chmod u+x json2sql
-    
-Then invoke it from the command line like this
-
-    $ json2sql tablename myfile.json
+ * Modified by Edgar Talamantes <edgartaor>
+ * USE
+ * localhost/jsontosql.php?tablename=TABLE_NAME&filename=MY_JSON_FILE.json
+ * The script will automatically write the resulting file as myfile.sql
     
 The script will automatically write the resulting file as myfile.sql
-
-More info
----------
-* By Hay Kranen: http://www.haykranen.nl
-* Fork it on Github: http://github.com/hay/json2sql
+ 

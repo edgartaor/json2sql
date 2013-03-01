@@ -1,27 +1,24 @@
-#!/usr/bin/php
 <?php
 /*
  * JSON2SQL PHP script
  * This script converts a JSON file to a series of SQL INSERT staments
  *
  * Written by Hay Kranen < http://www.haykranen.nl > < hay at bykr dot org >
- *
+ * Modified by Edgar Talamantes
  * USE
- * Make this executable
- * $ chmod u+x json2sql
- * Then invoke it from the command line like this
- * $ json2sql tablename myfile.json
+ * localhost/jsontosql.php?tablename=TABLE_NAME&filename=MY_JSON_FILE.json
  * The script will automatically write the resulting file as myfile.sql
  */
 
 function quit($msg) {
     die($msg . "\n");
 }
+ 
 
-$table = $argv[1];
+$table = $_GET['tablename'];
 if (!$table) quit("No tablename given!");
 
-$filename = $argv[2];
+$filename = $_GET['filename'];
 if (!file_exists($filename)) quit("File does not exist: $filename");
 
 $file = file_get_contents($filename);
@@ -30,6 +27,8 @@ if (!$file) quit("File read error with $filanme");
 echo "Processing $filename... \n";
 
 $data = json_decode($file, true);
+ 
+
 $sql = "";
 foreach($data as $obj) {
 
@@ -58,5 +57,7 @@ foreach($data as $obj) {
 // Create a filename based on the input file
 $out = pathinfo($filename, PATHINFO_FILENAME) . ".sql";
 if(!file_put_contents($out, $sql)) quit("Could not write contents to $out");
+
+echo $sql; 
 
 quit("Written SQL data to $out");
